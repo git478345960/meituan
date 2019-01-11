@@ -6,7 +6,7 @@
             </el-col>
             <el-col :span="15" class="center">
                 <div class="wrapper">
-                    <el-input v-model="searchWord" placeholder="搜索商家或地点" @focus="focusInput" @blur="blurInput" ></el-input>
+                    <el-input v-model="searchWord" placeholder="搜索商家或地点" @focus="focusInput" @blur="blurInput" @input="inputWord"></el-input>
                     <el-button type="primary" icon="el-icon-search"></el-button>
                     <dl class="hotPlace" v-if="isHotPlace">
                         <dt>热门搜索</dt>
@@ -35,7 +35,6 @@
 </template>
 <script>
 import api from '@/api/index.js'
-import axios from 'axios';
 export default {
     data() {
         return {
@@ -46,23 +45,13 @@ export default {
             suggestList: []
         }
     },
-    created() {
-        api.getSearchHotList().then((res) => {
-            if (res.data.status == 'success') {
-                this.hotPlaceList = res.data.data;
-                this.suggestList = res.data.data;
-            }
-        })
-    },
-    // created(){
-    //   axios.get('http://api.duyiedu.com/api/meituan/header/searchHotWords.json',
-    //  { params: {
-    //    appkey:'qwer1234_1547029699985',
-
-    //   }}).then(res =>{
-    //     this.hotPlaceList = res.data.data;
-    //     this.suggestList = res.data.data
-    //   })
+    // created() {
+    //     api.getSearchHotList().then((res) => {
+    //         if (res.data.status == 'success') {
+    //             this.hotPlaceList = res.data.data;
+    //             this.suggestList = res.data.data;
+    //         }
+    //     })
     // },
     computed: {
         isHotPlace() {
